@@ -49,7 +49,7 @@ $ cd restaurant-api
 $ npm install
 ```
 
-## Support Us :)
+## Support Me :)
 * Star this repository :star:
 * Hire Me:  http://bit.ly/RizqullahT
 
