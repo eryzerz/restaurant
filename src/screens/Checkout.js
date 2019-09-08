@@ -34,21 +34,31 @@ class Checkout extends Component {
         header: null
     }
 
+    handleAndroidBackButton = callback => {
+        BackHandler.addEventListener('hardwareBackPress', () => {
+            callback();
+            return true;
+        });
+    };
+
     backToHomeHandler = () => {
         this.props.dispatch(resetOrder())
         this.props.navigation.navigate('Home')
     }
 
+    exitAlert = () => {
+        Alert.alert(
+            'PERINGATAN',
+            'Anda telah finalisasi pemesanan',
+            [
+                {text: 'OK'}
+            ]
+        );
+    };
+
     componentDidMount() {
         this.getTableNum()
-        this.backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
-            Alert.alert("PERINGATAN", "Anda telah finalisasi pemesanan", { cancelable: false });
-            return true;
-        });
-    }
-
-    componentWillUnmount() {
-        this.backHandler.remove();
+        this.handleAndroidBackButton(this.exitAlert)
     }
 
     render() {
