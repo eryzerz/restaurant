@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, BackHandler } from 'react-native'
+import { View, Text, TouchableOpacity, BackHandler, Alert } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import { connect } from 'react-redux'
 
