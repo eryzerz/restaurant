@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { TouchableOpacity, TextInput, Text, View } from 'react-native'
+import { TouchableOpacity, TextInput, Text, View, Alert } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import { connect } from 'react-redux';
 
@@ -19,15 +19,19 @@ class SetTable extends Component {
     }
 
     submitHandler = async() => {
-        await AsyncStorage.setItem('TABLE_NUMBER', `${this.state.tableNum}`)
-        await this.props.dispatch(addTransaction({
-            tableNumber: this.state.tableNum,
-            isPaid: false
-        }))
-        
-        await AsyncStorage.setItem('TRANSACTION_ID', `${this.props.transaction.data.id}`)
-        let table = this.state.tableNum
-        await this.props.navigation.navigate('Menu', {table})
+        if (this.state.tableNum.length !== 0) {
+            await AsyncStorage.setItem('TABLE_NUMBER', `${this.state.tableNum}`)
+            await this.props.dispatch(addTransaction({
+                tableNumber: this.state.tableNum,
+                isPaid: false
+            }))
+            
+            await AsyncStorage.setItem('TRANSACTION_ID', `${this.props.transaction.data.id}`)
+            let table = this.state.tableNum
+            await this.props.navigation.navigate('Menu', {table})
+        } else {
+            Alert.alert('PERINGATAN', 'Anda harus memasukkan nomot tabel terlebih dahulu')
+        }
     }
 
     static navigationOptions = {
