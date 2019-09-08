@@ -50,3 +50,10 @@ export const getOrderByTrans = (id) => {
         payload: axios.get(`http://192.168.1.15:3000/api/v1/order/transaction/${id}`)
     }
 }   
+
+export const resetOrder = () => {
+    return {
+        type: 'RESET_ORDER',
+        payload: []
+    }
+}

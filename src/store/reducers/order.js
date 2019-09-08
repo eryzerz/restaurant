@@ -57,6 +57,11 @@ const order = (state = initialState, action) => {
                 ...state,
                 error: payload.message
             }
+        case 'RESET_ORDER':
+            return {
+                ...state,
+                addedMenu: action.payload
+            }
         default:
             return state
     }

@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, BackHandler } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
+import { connect } from 'react-redux'
 
-export default class Checkout extends Component {
+import { resetOrder } from '../store/actions/order'
+
+class Checkout extends Component {
 
     constructor(props) {
         super(props)
@@ -20,6 +23,8 @@ export default class Checkout extends Component {
                 tableNumber: number,
                 transactionId: id,
             })
+            await AsyncStorage.removeItem('TABLE_NUMBER')
+            await AsyncStorage.removeItem('TRANSACTION_ID')
         } catch (e) {
             console.log(e)
         }
@@ -27,6 +32,11 @@ export default class Checkout extends Component {
 
     static navigationOptions = {
         header: null
+    }
+
+    backToHomeHandler = () => {
+        this.props.dispatch(resetOrder())
+        this.props.navigation.navigate('Home')
     }
 
     componentDidMount() {
@@ -63,12 +73,20 @@ export default class Checkout extends Component {
                             elevation: 12,
                             justifyContent: 'center',
                             alignItems: 'center'}}
-                        onPress={() => this.props.navigation.navigate('Home')}
+                        onPress={() => this.backToHomeHandler()}
                     >
-                        <Text  style={{textAlign: 'center', color: '#ffffff', fontSize: 20, fontWeight: 'bold'}}>Back to Home</Text>
+                        <Text  style={{textAlign: 'center', color: '#ffffff', fontSize: 20, fontWeight: 'bold'}}>Back to order</Text>
                     </TouchableOpacity>
                 </View>
             </View>
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        order: state.order
+    }
+}
+
+export default connect(mapStateToProps)(Checkout)
