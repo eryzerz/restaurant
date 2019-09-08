@@ -25,16 +25,25 @@ class Order extends Component {
     
 
     confirmationHandler = () => {
-        Alert.alert('Konfirmasi Pemesanan', 'Apakah pesananmu telah usai?', [
-            {
-                text: 'Belum',
-                style: 'cancel'
-            },
-            {
-                text: 'Sudah',
-                onPress: () => this.transHandler()
-            }
-        ])
+        if(this.props.order.addedMenu.length !== 0) {
+            Alert.alert('Konfirmasi Pemesanan', 'Apakah pesananmu telah usai?', [
+                {
+                    text: 'Belum',
+                    style: 'cancel'
+                },
+                {
+                    text: 'Sudah',
+                    onPress: () => this.transHandler()
+                }
+            ])
+        } else {
+            Alert.alert('PERINGATAN', 'Anda belum memesan apapun', [
+                {
+                    text: 'Ok',
+                }
+            ])
+        }
+        
     }
 
     getTransId = async () => {
