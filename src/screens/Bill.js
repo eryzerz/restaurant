@@ -68,7 +68,7 @@ class Bill extends Component {
     exitAlert = () => {
         Alert.alert(
             'PERINGATAN',
-            'Pemesanan telah final',
+            'Waktu pemilihan menu telah usai',
             [
                 {text: 'OK'}
             ]
