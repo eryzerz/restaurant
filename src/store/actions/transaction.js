@@ -23,6 +23,7 @@ export const addTransaction = (data) => {
 }
 
 export const updateTransaction = (data, id) => {
+    console.log(id)
     return {
         type: 'UPDATE_TRANSACTION',
         payload: axios({
